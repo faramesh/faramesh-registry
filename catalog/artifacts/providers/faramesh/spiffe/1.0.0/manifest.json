@@ -41,7 +41,7 @@
   "signature": {
     "key_id": "faramesh-ed25519-2026",
     "algorithm": "ed25519",
-    "value_b64": "puJBHzxoRCBrss5g3sBZRVgHBWSyWa1Dk5fjzq8VWfMHWZLFs3Gs7kakNg3H0QxxeqfpiRvMcn0YUyrWWJLvDA==",
-    "public_key_b64": "QHApN8LymAWpwUlmsFXW0yNcC1hXtgAcwKIgJsOLnJA="
+    "value_b64": "nfwovR4IS0sYmHJsDd+Yj0Dd45/Etzduj5X9F3Ke3R2UvLUZhlioWvAOXjL5g6aCfAZ8EPzPdUOs6F61JjHcDg==",
+    "public_key_b64": "nxNjaQnS3L+zzKrRq48XfYBDWlFXkNJkxUiTD8j0sFs="
   }
 }

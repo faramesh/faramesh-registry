@@ -1,6 +1,6 @@
 {
   "key_id": "faramesh-ed25519-2026",
   "algorithm": "ed25519",
-  "value_b64": "MNA66V/voDW5VnmwYe3A16jAoOOfVUNmkGTcFhHn1+3HJ4jQ+uOE7tRx2lGnV5WNBA3wr22a4n42wZLa5rkECw==",
+  "value_b64": "srLaaQW4TN1+tzp8ruHOuPzMoRb0PzduhsUy64d+W8kxkRhVq3UVPn+oHygeDYvV6wZprvgrh2/BUA1k9dFZDg==",
   "public_key_b64": "nxNjaQnS3L+zzKrRq48XfYBDWlFXkNJkxUiTD8j0sFs="
 }

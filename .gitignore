@@ -1,3 +1,4 @@
+.secrets/
 providers/*/bin/
 # Provider release binaries live in catalog/.../bin/ (Git LFS). See .gitattributes.
 
