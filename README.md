@@ -61,8 +61,8 @@ export FARAMESH_REGISTRY_URL=http://127.0.0.1:9876
 
 Docker: `docker compose up --build`
 
-## Browse UI (optional)
+## Production status
 
-```bash
-cd web && npm install && npm run dev
-```
+See **[PRODUCTION_STATUS.md](./PRODUCTION_STATUS.md)** (what is verified vs starter packs) and **[SETUP_SIGNING.md](./SETUP_SIGNING.md)** (CI signing secret).
+
+The browse UI under `web/` is **disabled**; distribution is GitHub + CLI only.

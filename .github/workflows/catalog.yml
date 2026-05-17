@@ -28,12 +28,15 @@ jobs:
         run: ./scripts/validate-catalog.sh
       - name: Go test
         run: go test ./...
-      - name: Sign FPL artifacts (CI key from secret)
+      - name: Sign catalog (requires REGISTRY_SIGNING_KEY_B64 secret)
         env:
           REGISTRY_SIGNING_KEY_B64: ${{ secrets.REGISTRY_SIGNING_KEY_B64 }}
         run: |
           if [ -n "${REGISTRY_SIGNING_KEY_B64:-}" ]; then
             go run ./cmd/sign-catalog -catalog catalog
+            go run ./cmd/sign-catalog -catalog catalog -providers
           else
-            echo "skip sign: REGISTRY_SIGNING_KEY_B64 not set"
+            echo "::warning::REGISTRY_SIGNING_KEY_B64 not set — see SETUP_SIGNING.md"
           fi
+      - name: E2E smoke (GitHub resolver)
+        run: ./scripts/e2e-catalog.sh

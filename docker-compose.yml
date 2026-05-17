@@ -9,13 +9,4 @@ services:
       - ./catalog:/app/catalog:ro
     command: ["-catalog", "/app/catalog", "-listen", "0.0.0.0:9876"]
 
-  web:
-    build:
-      context: ./web
-      dockerfile: Dockerfile
-    ports:
-      - "3001:3001"
-    environment:
-      REGISTRY_API_URL: http://registry:9876
-    depends_on:
-      - registry
+  # Web UI disabled — use GitHub catalog + `faramesh registry` CLI (see PRODUCTION_STATUS.md).
