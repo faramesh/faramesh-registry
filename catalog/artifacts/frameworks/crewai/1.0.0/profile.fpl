@@ -1,0 +1,9 @@
+runtime {
+  mode = "enforce"
+}
+
+agent "default" {
+  framework "crewai"
+  default deny
+  rules { permit * }
+}

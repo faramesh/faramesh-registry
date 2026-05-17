@@ -1,0 +1,8 @@
+agent "default" {
+  default deny
+  rules {
+    permit openai/chat
+    permit openai/embeddings
+    deny openai/fine_tuning
+  }
+}

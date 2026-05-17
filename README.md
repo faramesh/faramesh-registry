@@ -1,72 +1,68 @@
 # Faramesh Registry
 
-**Website:** https://registry.faramesh.dev (production)  
-**Documentation:** https://docs.faramesh.dev/registry/  
-**Runtime spec:** [`faramesh-core/docs/internal/FARAMESH.md`](../faramesh-core/docs/internal/FARAMESH.md)  
-**Platform design:** [`docs/internal/FARAMESH_REGISTRY_PLATFORM.md`](../docs/internal/FARAMESH_REGISTRY_PLATFORM.md)  
-**Language principles:** [PRINCIPLES.md](./PRINCIPLES.md) — **FPL is primary**; YAML/JSON are natural sidecars.
+Official **GitHub catalog** for Faramesh artifacts: signed provider binaries, policy packs (FPL), and framework profiles (FPL).
 
-## What this repo is
+**Catalog:** [github.com/faramesh/faramesh-registry](https://github.com/faramesh/faramesh-registry)  
+**Documentation:** [docs.faramesh.dev/registry](https://docs.faramesh.dev/registry/)  
+**Runtime spec:** [faramesh-core](https://github.com/faramesh/faramesh-core)
 
-Official distribution for **providers** (signed binaries), **policy packs** (FPL), and **framework profiles** (FPL). The CLI resolves pinned imports at `faramesh check` / `apply`.
+## Use artifacts in your stack
 
-## GitHub distribution (no registry.faramesh.dev yet)
+Imports in `governance.fms` point at this repository (pinned semver required):
 
-See **[GITHUB_DISTRIBUTION.md](./GITHUB_DISTRIBUTION.md)** — one repo, built provider binaries under `catalog/artifacts/.../bin/`, consume via `FARAMESH_REGISTRY_ROOT` or self-hosted HTTP.
+```hcl
+import "github.com/faramesh/faramesh-registry/frameworks/langgraph@1.0.0"
+import "github.com/faramesh/faramesh-registry/policies/faramesh/stripe@1.0.0" as stripe_rules
+import "github.com/faramesh/faramesh-registry/providers/faramesh/vault@1.0.0"
+```
+
+The Faramesh CLI resolves these at `faramesh check` (FPL merge) and `faramesh apply` (provider binaries). No separate registry service is required.
 
 ```bash
-export FARAMESH_REGISTRY_ROOT=/path/to/Faramesh-Nexus/faramesh-registry
 faramesh registry list
+faramesh registry search vault
 faramesh check
+faramesh apply
 ```
 
-## Quick start
+Optional overrides:
+
+| Variable | Purpose |
+|----------|---------|
+| `FARAMESH_REGISTRY_ROOT` | Path to a local clone of this repo (air-gapped / fork) |
+| `FARAMESH_REGISTRY_URL` | Self-hosted HTTP registry (`go run ./cmd/registry`) |
+| `FARAMESH_REGISTRY_GITHUB_REF` | Git ref (default `main`) |
+
+See **[GITHUB_DISTRIBUTION.md](./GITHUB_DISTRIBUTION.md)** and **[CONTRIBUTING.md](./CONTRIBUTING.md)**.
+
+## Catalog layout
+
+```
+catalog/
+  catalog.json          # index
+  trust/keys.json       # Ed25519 public keys
+  artifacts/
+    providers/.../bin/  # signed sidecar binaries
+    policies/.../policy.fpl
+    frameworks/.../profile.fpl
+```
+
+Validate: `./scripts/validate-catalog.sh`  
+Build providers: `make providers`  
+Refresh hashes: `./scripts/refresh-provider-hashes.sh`  
+Sign (maintainers): `make sign-all` with `REGISTRY_SIGNING_KEY_B64`
+
+## Self-hosted HTTP registry (optional)
 
 ```bash
-go run ./cmd/registry -catalog catalog
-# → http://127.0.0.1:9876
-
+go run ./cmd/registry -catalog catalog -listen :9876
 export FARAMESH_REGISTRY_URL=http://127.0.0.1:9876
-curl -s http://127.0.0.1:9876/.well-known/faramesh.json | jq .
-curl -s "http://127.0.0.1:9876/v1/policies/faramesh/demo/versions/0.1.0" | jq .policy_fpl
 ```
 
-### Web UI
+Docker: `docker compose up --build`
+
+## Browse UI (optional)
 
 ```bash
 cd web && npm install && npm run dev
-# → http://localhost:3001
 ```
-
-### Docker
-
-```bash
-docker compose up --build
-```
-
-## Catalog (GitOps)
-
-- Index: `catalog/catalog.json`
-- Canonical policy/framework files: `policy.fpl`, `profile.fpl`
-- Optional: `policy.yaml`, `policy.json`, `meta.json`, `README.md`
-- Validate: `./scripts/validate-catalog.sh`
-- Sign FPL: `go run ./cmd/sign-catalog -catalog catalog` (requires `REGISTRY_SIGNING_KEY_B64`)
-
-## API (v1)
-
-| Method | Path |
-|--------|------|
-| GET | `/.well-known/faramesh.json` |
-| GET | `/v1/search?q=&kind=&tier=` |
-| GET | `/v1/stats` |
-| GET | `/v1/policies/{name}/versions/{version}` — JSON includes `policy_fpl`; `?format=yaml\|json` for sidecars |
-| GET | `/v1/frameworks/{name}/versions/{version}` |
-| GET | `/v1/providers/{name}/versions/{version}` |
-| GET | `/v1/trust/keys` |
-| POST | `/v1/publish` — verifies Ed25519 over `policy_fpl` |
-
-Namespaced artifacts use slash paths, e.g. `faramesh/stripe`.
-
-## Implementation status
-
-See [IMPLEMENTATION_PLAN.md](./IMPLEMENTATION_PLAN.md) — R0–R5 done; R6 (community tier) planned.

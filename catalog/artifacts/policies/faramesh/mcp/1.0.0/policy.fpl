@@ -1,0 +1,9 @@
+agent "default" {
+  default deny
+  rules {
+    permit mcp/tools/list
+    permit mcp/tools/call
+    defer mcp/tools/call when tool =~ "write|upload|send" notify "#mcp-approvals"
+    deny mcp/resources/write
+  }
+}

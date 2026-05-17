@@ -1,105 +1,60 @@
-# GitHub distribution (before registry.faramesh.dev)
+# GitHub catalog distribution
 
-Use **one repo** — this `faramesh-registry` tree inside [Faramesh-Nexus](https://github.com/faramesh/Faramesh-Nexus). Do **not** split each provider into its own repo; the CLI resolves everything from `catalog/catalog.json`.
+All Faramesh registry artifacts live in this repository. The Faramesh CLI resolves imports from GitHub by default.
 
-## What ships today
+## What ships in the catalog
 
-| Kind | Built? | In catalog | Notes |
-|------|--------|------------|--------|
-| **Provider** `faramesh/vault` | Go sidecar binary | yes | Secrets (HashiCorp Vault) |
-| **Provider** `faramesh/spiffe` | Go sidecar binary | yes | Identity (SPIRE/SPIFFE) |
-| **Provider** `faramesh/dev-kms` | Go sidecar binary | yes | Dev-only KMS; not for production |
-| **Policy** `faramesh/demo`, `stripe`, `shell` | FPL only | yes | No binary |
-| **Framework** `langgraph`, `mcp`, `cursor`, `langchain` | FPL profile only | yes | Wiring fragment, not a binary |
+| Kind | Examples | Binary? |
+|------|----------|---------|
+| **Providers** | `faramesh/vault`, `faramesh/spiffe` | Yes — gRPC sidecar |
+| **Policy packs** | `faramesh/stripe`, `faramesh/openai`, `faramesh/github` | FPL only |
+| **Framework profiles** | `langgraph`, `mcp`, `cursor`, `crewai`, `bedrock` | FPL only |
 
-Future providers (AWS SM, GCP SM, audit sinks, etc.) are specified in `docs/internal/FARAMESH_REGISTRY_PLATFORM.md` — add them here with the same layout.
+`faramesh/dev-kms` is included for local development only — do not use in production.
 
-## Build signed artifacts (maintainers)
+## Default CLI behavior
 
-```bash
-cd faramesh-registry
-make providers                    # linux/darwin × amd64/arm64
-export REGISTRY_SIGNING_KEY_B64=...  # from: go run ./cmd/gen-signing-key
-make sign-all                     # FPL + provider binaries + manifest.json
-./scripts/validate-catalog.sh
-```
+With no environment variables set, `faramesh check` and `faramesh apply` fetch:
 
-Provider binaries land under `catalog/artifacts/providers/faramesh/<name>/1.0.0/bin/`. They are **Git LFS** objects (see `.gitattributes`).
+- `catalog/catalog.json` from `raw.githubusercontent.com`
+- FPL files and provider binaries from the same repo/ref (`main` by default)
 
-## How users consume (no live registry platform)
-
-### Option A — Local catalog checkout (recommended for prod today)
-
-```bash
-git clone https://github.com/faramesh/Faramesh-Nexus.git
-export FARAMESH_REGISTRY_ROOT="$PWD/Faramesh-Nexus/faramesh-registry"
-cd your-agent-repo
-faramesh registry list
-faramesh check    # resolves imports from the catalog tree
-faramesh apply    # installs provider binaries from catalog/bin/
-```
-
-Equivalent: `export FARAMESH_REGISTRY_URL=file://$PWD/Faramesh-Nexus/faramesh-registry`
-
-### Option B — Self-hosted HTTP registry
-
-```bash
-cd faramesh-registry
-make sign-all   # binaries must exist under catalog/.../bin/
-go run ./cmd/registry -catalog catalog -listen :9876
-export FARAMESH_REGISTRY_URL=http://127.0.0.1:9876
-faramesh check
-```
-
-Deploy the same image to Render (`render.yaml`) for a team-wide URL.
-
-### Option C — Official host (when live)
-
-```bash
-export FARAMESH_REGISTRY_URL=https://registry.faramesh.dev
-```
-
-Imports stay the same: `import "registry.faramesh.dev/providers/faramesh/vault@1.0.0"`
-
-## CLI browse / search
-
-```bash
-faramesh registry url
-faramesh registry list
-faramesh registry list --kind provider
-faramesh registry search stripe
-faramesh registry info frameworks/langgraph@1.0.0
-```
-
-## Example `governance.fms`
+## Import syntax
 
 ```hcl
 trust {
-  key "registry.faramesh.dev" ed25519:QHApN8LymAWpwUlmsFXW0yNcC1hXtgAcwKIgJsOLnJA=
+  key "github.com/faramesh/faramesh-registry" ed25519:QHApN8LymAWpwUlmsFXW0yNcC1hXtgAcwKIgJsOLnJA=
 }
 
-import "registry.faramesh.dev/frameworks/langgraph@1.0.0"
-import "registry.faramesh.dev/policies/faramesh/stripe@1.0.0" as stripe_rules
-import "registry.faramesh.dev/providers/faramesh/vault@1.0.0"
-
-provider "vault" {
-  type  = "vault"
-  addr  = env("VAULT_ADDR")
-  token = env("VAULT_TOKEN")
-  mount = "secret"
-}
+import "github.com/faramesh/faramesh-registry/frameworks/langgraph@1.0.0"
+import "github.com/faramesh/faramesh-registry/policies/faramesh/stripe@1.0.0" as stripe_rules
+import "github.com/faramesh/faramesh-registry/providers/faramesh/vault@1.0.0"
 ```
 
-Faramesh compiles FPL at `faramesh check` (policy/framework imports) and downloads provider binaries at `faramesh apply`.
+## Overrides
 
-## Community artifacts
+| Mode | Setup |
+|------|--------|
+| **GitHub (default)** | Nothing to configure |
+| **Local clone** | `export FARAMESH_REGISTRY_ROOT=$PWD` after cloning this repo |
+| **HTTP server** | `go run ./cmd/registry -catalog catalog` and `export FARAMESH_REGISTRY_URL=http://127.0.0.1:9876` |
+| **Fork / community** | Clone fork, add trust key, set `FARAMESH_REGISTRY_ROOT` |
 
-1. Fork Faramesh-Nexus (or publish your own registry server).
-2. Add under `faramesh-registry/catalog/artifacts/...` following existing layout.
-3. Register in `catalog/catalog.json` with `trust_tier: "community"`.
-4. Open a PR; CI runs `validate-catalog.sh`.
-5. Consumers add **your** trust key in `trust { ... }` and either:
-   - point `FARAMESH_REGISTRY_ROOT` at their clone of your fork, or
-   - run your registry HTTP endpoint and set `FARAMESH_REGISTRY_URL`.
+## Maintainer workflow
 
-There is no central approval UI yet — trust is explicit in `governance.fms`.
+```bash
+make providers
+./scripts/refresh-provider-hashes.sh
+./scripts/validate-catalog.sh
+# With signing key:
+export REGISTRY_SIGNING_KEY_B64=...
+make sign-all
+git push
+```
+
+## Community publishing
+
+1. Fork this repository.
+2. Add artifacts under `catalog/artifacts/` and register in `catalog/catalog.json`.
+3. Open a pull request; CI validates FPL and manifest layout.
+4. Consumers pin your fork via `FARAMESH_REGISTRY_ROOT` and add your publisher key to `trust { ... }`.

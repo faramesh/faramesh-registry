@@ -1,0 +1,9 @@
+runtime {
+  mode = "enforce"
+}
+
+agent "default" {
+  framework "openai-agents"
+  default deny
+  rules { permit * }
+}

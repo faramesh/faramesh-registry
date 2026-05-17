@@ -1,0 +1,12 @@
+agent "default" {
+  default deny
+  rules {
+    permit github/repos/read
+    permit github/issues/*
+    permit github/pulls/*
+    permit github/contents/read
+    defer github/contents/write notify "#code-review"
+    deny! github/git/force_push
+    deny! github/repos/delete
+  }
+}

@@ -1,0 +1,9 @@
+runtime {
+  mode = "enforce"
+}
+
+agent "default" {
+  framework "claude-code"
+  default deny
+  rules { permit * }
+}

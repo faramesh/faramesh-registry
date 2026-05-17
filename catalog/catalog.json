@@ -1,5 +1,5 @@
 {
-  "registry_id": "registry.faramesh.dev",
+  "registry_id": "github.com/faramesh/faramesh-registry",
   "packs": [],
   "policies": [
     {
@@ -30,6 +30,36 @@
       "category": "tool",
       "versions": {
         "1.0.0": "artifacts/policies/faramesh/shell/1.0.0/policy.fpl"
+      }
+    },
+    {
+      "name": "faramesh/openai",
+      "latest_version": "1.0.0",
+      "description": "OpenAI API tool guardrails (chat, embeddings; no fine-tuning)",
+      "trust_tier": "official",
+      "category": "tool",
+      "versions": {
+        "1.0.0": "artifacts/policies/faramesh/openai/1.0.0/policy.fpl"
+      }
+    },
+    {
+      "name": "faramesh/github",
+      "latest_version": "1.0.0",
+      "description": "GitHub agent tools — read-first, no force-push or repo delete",
+      "trust_tier": "official",
+      "category": "tool",
+      "versions": {
+        "1.0.0": "artifacts/policies/faramesh/github/1.0.0/policy.fpl"
+      }
+    },
+    {
+      "name": "faramesh/mcp",
+      "latest_version": "1.0.0",
+      "description": "Baseline MCP client policy — list/call with approval on writes",
+      "trust_tier": "official",
+      "category": "tool",
+      "versions": {
+        "1.0.0": "artifacts/policies/faramesh/mcp/1.0.0/policy.fpl"
       }
     }
   ],
@@ -72,6 +102,46 @@
       "category": "agent-framework",
       "versions": {
         "1.0.0": "artifacts/frameworks/langchain/1.0.0/profile.fpl"
+      }
+    },
+    {
+      "name": "openai-agents",
+      "latest_version": "1.0.0",
+      "description": "OpenAI Agents SDK profile (SDK shim tier)",
+      "trust_tier": "official",
+      "category": "agent-framework",
+      "versions": {
+        "1.0.0": "artifacts/frameworks/openai-agents/1.0.0/profile.fpl"
+      }
+    },
+    {
+      "name": "crewai",
+      "latest_version": "1.0.0",
+      "description": "CrewAI multi-agent profile (SDK shim tier)",
+      "trust_tier": "official",
+      "category": "agent-framework",
+      "versions": {
+        "1.0.0": "artifacts/frameworks/crewai/1.0.0/profile.fpl"
+      }
+    },
+    {
+      "name": "bedrock",
+      "latest_version": "1.0.0",
+      "description": "Amazon Bedrock agent runtime (HTTP proxy tier)",
+      "trust_tier": "official",
+      "category": "agent-framework",
+      "versions": {
+        "1.0.0": "artifacts/frameworks/bedrock/1.0.0/profile.fpl"
+      }
+    },
+    {
+      "name": "claude-code",
+      "latest_version": "1.0.0",
+      "description": "Claude Code MCP client profile",
+      "trust_tier": "official",
+      "category": "agent-framework",
+      "versions": {
+        "1.0.0": "artifacts/frameworks/claude-code/1.0.0/profile.fpl"
       }
     }
   ],

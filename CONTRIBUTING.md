@@ -31,4 +31,4 @@ catalog/
 
 Set `"trust_tier": "community"` and document required config in `README.md` beside the artifact. Users must pin your publisher key in their stack `trust` block.
 
-See [GITHUB_DISTRIBUTION.md](./GITHUB_DISTRIBUTION.md) for how consumers resolve artifacts without registry.faramesh.dev.
+See [GITHUB_DISTRIBUTION.md](./GITHUB_DISTRIBUTION.md) for how consumers resolve artifacts from GitHub.
