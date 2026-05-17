@@ -1,0 +1,9 @@
+# Optional sidecar — FPL (policy.fpl) is canonical for install/compile.
+agents:
+  demo-pack:
+    default: deny
+    rules:
+      - effect: permit
+        tool: echo/*
+      - effect: deny!
+        tool: shell/*

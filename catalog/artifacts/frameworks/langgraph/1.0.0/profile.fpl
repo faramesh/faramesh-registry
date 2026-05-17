@@ -1,0 +1,9 @@
+runtime {
+  mode = "enforce"
+}
+
+agent "default" {
+  framework "langgraph"
+  default deny
+  rules { permit * }
+}

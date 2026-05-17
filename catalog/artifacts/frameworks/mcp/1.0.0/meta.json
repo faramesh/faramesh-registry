@@ -1,0 +1,7 @@
+{
+  "description": "MCP client framework profile (MCP proxy tier)",
+  "faramesh_version": ">=0.1.0",
+  "compatibility": {
+    "tier": "mcp-proxy"
+  }
+}

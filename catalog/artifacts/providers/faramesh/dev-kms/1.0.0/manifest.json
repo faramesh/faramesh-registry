@@ -1,0 +1,36 @@
+{
+  "name": "faramesh/dev-kms",
+  "version": "1.0.0",
+  "dev_only": true,
+  "capabilities": [
+    "KMS"
+  ],
+  "downloads": {
+    "darwin_amd64": {
+      "url": "file://bin/faramesh-provider-dev-kms-darwin_amd64",
+      "sha256_hex": "91107a0f0725b198c7efc5db686f98d58ef3ac9489bb6df981831d610b38f8a5",
+      "size": 10750064
+    },
+    "darwin_arm64": {
+      "url": "file://bin/faramesh-provider-dev-kms-darwin_arm64",
+      "sha256_hex": "dc5d7c273668c04f599ffa27befa7ebbad3cc5e0cd029896d105c649379cfeb0",
+      "size": 10161106
+    },
+    "linux_amd64": {
+      "url": "file://bin/faramesh-provider-dev-kms-linux_amd64",
+      "sha256_hex": "60d33c10dc230979f8f63292dad6f62ee1afef8250a5a73727b82d60a6c37499",
+      "size": 10428600
+    },
+    "linux_arm64": {
+      "url": "file://bin/faramesh-provider-dev-kms-linux_arm64",
+      "sha256_hex": "40518d000fab03e6ae78044ad91c41ab65bac2b9bf6f591dfbdc574194eb715b",
+      "size": 9830584
+    }
+  },
+  "signature": {
+    "key_id": "faramesh-ed25519-2026",
+    "algorithm": "ed25519",
+    "value_b64": "qqhAcepjAGfdTSfSJkAmkRp3BA0tIoZweR2LyWmDUu4SUqpluefg66J941/gDJG/jrG3df1K4Fvs3vm+8UKMDw==",
+    "public_key_b64": "QHApN8LymAWpwUlmsFXW0yNcC1hXtgAcwKIgJsOLnJA="
+  }
+}

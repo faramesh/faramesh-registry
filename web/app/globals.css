@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --registry-purple: #5c4ee5;
+  --registry-border: #dce3e8;
+  --registry-muted: #6b7785;
+  --registry-bg: #ffffff;
+  --registry-surface: #f9fafb;
+}
+
+body {
+  @apply bg-white text-slate-900 antialiased;
+}
+
+.registry-card {
+  @apply rounded border border-[var(--registry-border)] bg-white hover:border-slate-400 transition-colors;
+}
+
+.registry-badge-official {
+  @apply inline-flex items-center rounded px-2 py-0.5 text-xs font-medium bg-violet-100 text-violet-800;
+}

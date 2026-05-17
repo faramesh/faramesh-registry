@@ -1,0 +1,9 @@
+runtime {
+  mode = "enforce"
+}
+
+agent "default" {
+  framework "cursor"
+  default deny
+  rules { permit * }
+}

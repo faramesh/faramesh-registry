@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: faramesh-registry-api
+    runtime: docker
+    dockerfilePath: ./Dockerfile.render
+    dockerContext: .
+    plan: starter
+    region: oregon
+    envVars:
+      - key: PORT
+        value: "8080"
+      - key: REGISTRY_SIGNING_KEY_B64
+        sync: false
+      - key: CATALOG_PATH
+        value: /app/catalog
+    healthCheckPath: /.well-known/faramesh.json
+    autoDeploy: true

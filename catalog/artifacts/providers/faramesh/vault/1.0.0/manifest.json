@@ -1,0 +1,58 @@
+{
+  "name": "faramesh/vault",
+  "version": "1.0.0",
+  "capabilities": [
+    "SECRETS"
+  ],
+  "config_schema": {
+    "addr": {
+      "description": "Vault server address",
+      "required": true,
+      "type": "string"
+    },
+    "mount": {
+      "default": "secret",
+      "description": "KV mount path",
+      "required": false,
+      "type": "string"
+    },
+    "namespace": {
+      "description": "Vault enterprise namespace",
+      "required": false,
+      "type": "string"
+    },
+    "token": {
+      "description": "Vault token (use env() in governance.fms)",
+      "required": true,
+      "type": "string"
+    }
+  },
+  "downloads": {
+    "darwin_amd64": {
+      "url": "file://bin/faramesh-provider-vault-darwin_amd64",
+      "sha256_hex": "194a24d08f0534f796569737d559a0e662e4b1d42d1c0a6d672fe389d6143241",
+      "size": 11889072
+    },
+    "darwin_arm64": {
+      "url": "file://bin/faramesh-provider-vault-darwin_arm64",
+      "sha256_hex": "6ae39f38263f1889114afcea4f9cbdbcdf16c4b121403f8bae797d29379a51e6",
+      "size": 11247058
+    },
+    "linux_amd64": {
+      "url": "file://bin/faramesh-provider-vault-linux_amd64",
+      "sha256_hex": "c363fdd529cb35e1b27b80da07d6e67082cc4c04eed2165a49a834639af28222",
+      "size": 11534520
+    },
+    "linux_arm64": {
+      "url": "file://bin/faramesh-provider-vault-linux_arm64",
+      "sha256_hex": "b37e5bbfffc11a88c95d5939534de5ca012209ca31d5ef0bf0a881b98e216972",
+      "size": 10813624
+    }
+  },
+  "signature": {
+    "key_id": "faramesh-ed25519-2026",
+    "algorithm": "ed25519",
+    "value_b64": "fttQ1QW513cUQEa2z9jpjtriOr1IqjVcp/5WBboq+zGBHjajMwIZ0xZIswWPLdlXw6YoiZ8f0kczJp4onIQnBQ==",
+    "public_key_b64": "QHApN8LymAWpwUlmsFXW0yNcC1hXtgAcwKIgJsOLnJA="
+  }
+}

@@ -1,0 +1,8 @@
+agent "ops-agent" {
+  default deny
+  rules {
+    deny! shell/rm_rf
+    deny! shell/pipe_to_shell
+    permit shell/read when path matches "/tmp/*"
+  }
+}

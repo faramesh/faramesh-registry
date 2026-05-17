@@ -1,0 +1,9 @@
+{
+  "description": "Demo policy pack for local registry smoke tests",
+  "changelog": "Initial demo pack with echo permit and shell deny.",
+  "faramesh_version": ">=0.1.0",
+  "rules_summary": {
+    "permit": ["echo/*"],
+    "deny": ["shell/*"]
+  }
+}

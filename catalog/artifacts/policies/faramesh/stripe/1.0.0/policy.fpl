@@ -1,0 +1,8 @@
+agent "payment-bot" {
+  default deny
+  rules {
+    permit stripe/charge when amount <= 2000
+    permit stripe/refund when amount <= 500
+    defer stripe/charge when amount > 2000 notify "#payments"
+  }
+}

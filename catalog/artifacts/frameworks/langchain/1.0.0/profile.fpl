@@ -1,0 +1,9 @@
+runtime {
+  mode = "enforce"
+}
+
+agent "default" {
+  framework "langchain"
+  default deny
+  rules { permit * }
+}

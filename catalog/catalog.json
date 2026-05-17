@@ -1,0 +1,110 @@
+{
+  "registry_id": "registry.faramesh.dev",
+  "packs": [],
+  "policies": [
+    {
+      "name": "faramesh/demo",
+      "latest_version": "0.1.0",
+      "description": "Demo policy pack for local registry smoke tests",
+      "trust_tier": "official",
+      "category": "demo",
+      "versions": {
+        "0.1.0": "artifacts/policies/faramesh/demo/0.1.0/policy.fpl"
+      }
+    },
+    {
+      "name": "faramesh/stripe",
+      "latest_version": "1.0.0",
+      "description": "Stripe payment and refund guardrails",
+      "trust_tier": "official",
+      "category": "tool",
+      "versions": {
+        "1.0.0": "artifacts/policies/faramesh/stripe/1.0.0/policy.fpl"
+      }
+    },
+    {
+      "name": "faramesh/shell",
+      "latest_version": "1.0.0",
+      "description": "Shell execution baselines",
+      "trust_tier": "official",
+      "category": "tool",
+      "versions": {
+        "1.0.0": "artifacts/policies/faramesh/shell/1.0.0/policy.fpl"
+      }
+    }
+  ],
+  "frameworks": [
+    {
+      "name": "langgraph",
+      "latest_version": "1.0.0",
+      "description": "LangGraph framework profile (SDK tier)",
+      "trust_tier": "official",
+      "category": "agent-framework",
+      "versions": {
+        "1.0.0": "artifacts/frameworks/langgraph/1.0.0/profile.fpl"
+      }
+    },
+    {
+      "name": "mcp",
+      "latest_version": "1.0.0",
+      "description": "MCP clients (Claude Code, Cursor, OpenCode) — proxy tier",
+      "trust_tier": "official",
+      "category": "agent-framework",
+      "versions": {
+        "1.0.0": "artifacts/frameworks/mcp/1.0.0/profile.fpl"
+      }
+    },
+    {
+      "name": "cursor",
+      "latest_version": "1.0.0",
+      "description": "Cursor IDE agent profile (MCP proxy tier)",
+      "trust_tier": "official",
+      "category": "agent-framework",
+      "versions": {
+        "1.0.0": "artifacts/frameworks/cursor/1.0.0/profile.fpl"
+      }
+    },
+    {
+      "name": "langchain",
+      "latest_version": "1.0.0",
+      "description": "LangChain framework profile (SDK shim tier)",
+      "trust_tier": "official",
+      "category": "agent-framework",
+      "versions": {
+        "1.0.0": "artifacts/frameworks/langchain/1.0.0/profile.fpl"
+      }
+    }
+  ],
+  "providers": [
+    {
+      "name": "faramesh/vault",
+      "latest_version": "1.0.0",
+      "description": "HashiCorp Vault secrets ProviderService sidecar",
+      "trust_tier": "official",
+      "capabilities": ["SECRETS"],
+      "versions": {
+        "1.0.0": "artifacts/providers/faramesh/vault/1.0.0/manifest.json"
+      }
+    },
+    {
+      "name": "faramesh/spiffe",
+      "latest_version": "1.0.0",
+      "description": "SPIRE workload identity ProviderService sidecar",
+      "trust_tier": "official",
+      "capabilities": ["IDENTITY"],
+      "versions": {
+        "1.0.0": "artifacts/providers/faramesh/spiffe/1.0.0/manifest.json"
+      }
+    },
+    {
+      "name": "faramesh/dev-kms",
+      "latest_version": "1.0.0",
+      "description": "Ephemeral dev KMS (not for production)",
+      "trust_tier": "official",
+      "capabilities": ["KMS"],
+      "versions": {
+        "1.0.0": "artifacts/providers/faramesh/dev-kms/1.0.0/manifest.json"
+      }
+    }
+  ]
+}

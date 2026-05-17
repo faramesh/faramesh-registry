@@ -1,0 +1,48 @@
+name: build-providers
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "faramesh-registry/providers/**"
+      - "faramesh-registry/Makefile"
+      - "faramesh-registry/catalog/**"
+      - "faramesh-registry/.github/workflows/build-providers.yml"
+
+defaults:
+  run:
+    working-directory: faramesh-registry
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.22"
+      - name: Build provider binaries
+        run: make providers
+      - name: Sign catalog
+        env:
+          REGISTRY_SIGNING_KEY_B64: ${{ secrets.REGISTRY_SIGNING_KEY_B64 }}
+        run: |
+          if [ -n "${REGISTRY_SIGNING_KEY_B64:-}" ]; then
+            go run ./cmd/sign-catalog -catalog catalog -providers
+            go run ./cmd/sign-catalog -catalog catalog
+          else
+            echo "REGISTRY_SIGNING_KEY_B64 not set — skipping sign"
+          fi
+      - name: Validate catalog
+        run: |
+          sudo apt-get update && sudo apt-get install -y jq
+          ./scripts/validate-catalog.sh
+      - name: Upload provider binaries (artifact)
+        uses: actions/upload-artifact@v4
+        with:
+          name: faramesh-provider-binaries
+          path: catalog/artifacts/providers/**/bin/*
+          if-no-files-found: error

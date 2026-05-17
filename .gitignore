@@ -1,0 +1,6 @@
+providers/*/bin/
+# Provider release binaries live in catalog/.../bin/ (Git LFS). See .gitattributes.
+
+/web/node_modules/
+/web/.next/
+**/.DS_Store

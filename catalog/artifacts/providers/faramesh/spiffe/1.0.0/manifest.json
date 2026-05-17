@@ -1,0 +1,47 @@
+{
+  "name": "faramesh/spiffe",
+  "version": "1.0.0",
+  "capabilities": [
+    "IDENTITY"
+  ],
+  "config_schema": {
+    "socket": {
+      "description": "SPIRE agent Workload API Unix socket",
+      "required": true,
+      "type": "string"
+    },
+    "trust_domain": {
+      "description": "Expected SPIFFE trust domain",
+      "required": true,
+      "type": "string"
+    }
+  },
+  "downloads": {
+    "darwin_amd64": {
+      "url": "file://bin/faramesh-provider-spiffe-darwin_amd64",
+      "sha256_hex": "8eb99a4db03adbafed0aad266d7fb5e6f3f06fbc9895b65bea50acdba856109f",
+      "size": 11227760
+    },
+    "darwin_arm64": {
+      "url": "file://bin/faramesh-provider-spiffe-darwin_arm64",
+      "sha256_hex": "b187365c4a95f5d0604d161a8635b40d6e35822a448dc8afce9b26ecb6f256d1",
+      "size": 10601250
+    },
+    "linux_amd64": {
+      "url": "file://bin/faramesh-provider-spiffe-linux_amd64",
+      "sha256_hex": "f2d1c2c36327653e406d65bb28e71acddf1a3887d8437d270b5ddf6e06361728",
+      "size": 10899640
+    },
+    "linux_arm64": {
+      "url": "file://bin/faramesh-provider-spiffe-linux_arm64",
+      "sha256_hex": "0d302ce4d4794cb0afe2fa166d2fa356779ae809e9b1a7d0d8d9dd6351bb13af",
+      "size": 10289336
+    }
+  },
+  "signature": {
+    "key_id": "faramesh-ed25519-2026",
+    "algorithm": "ed25519",
+    "value_b64": "puJBHzxoRCBrss5g3sBZRVgHBWSyWa1Dk5fjzq8VWfMHWZLFs3Gs7kakNg3H0QxxeqfpiRvMcn0YUyrWWJLvDA==",
+    "public_key_b64": "QHApN8LymAWpwUlmsFXW0yNcC1hXtgAcwKIgJsOLnJA="
+  }
+}

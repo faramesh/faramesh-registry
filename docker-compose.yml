@@ -1,0 +1,21 @@
+services:
+  registry:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "9876:9876"
+    volumes:
+      - ./catalog:/app/catalog:ro
+    command: ["-catalog", "/app/catalog", "-listen", "0.0.0.0:9876"]
+
+  web:
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+    environment:
+      REGISTRY_API_URL: http://registry:9876
+    depends_on:
+      - registry

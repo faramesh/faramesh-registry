@@ -1,0 +1,12 @@
+{
+  "description": "Stripe payment and refund guardrails",
+  "category": "tool",
+  "parameter_schema": {
+    "refund_threshold": { "type": "number", "default": 500 },
+    "charge_threshold": { "type": "number", "default": 2000 }
+  },
+  "rules_summary": {
+    "permit": ["stripe/charge", "stripe/refund"],
+    "defer": ["stripe/charge"]
+  }
+}

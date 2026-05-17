@@ -1,0 +1,8 @@
+{
+  "description": "Shell execution baselines — block destructive patterns",
+  "category": "tool",
+  "rules_summary": {
+    "deny": ["shell/rm_rf", "shell/pipe_to_shell"],
+    "permit": ["shell/read"]
+  }
+}

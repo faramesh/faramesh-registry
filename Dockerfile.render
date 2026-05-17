@@ -1,0 +1,18 @@
+# Render API image — FPL policies/frameworks/manifests only (provider binaries are gitignored).
+FROM golang:1.22-alpine AS builder
+WORKDIR /src
+COPY go.mod go.sum ./
+RUN go mod download
+COPY . .
+RUN CGO_ENABLED=0 go build -trimpath -ldflags="-s -w" -o /registry ./cmd/registry
+
+FROM alpine:3.20
+RUN apk add --no-cache ca-certificates
+WORKDIR /app
+COPY --from=builder /registry ./registry
+# Catalog is baked in; provider bin/ dirs are not in git — deploy builds binaries separately.
+COPY catalog/ /app/catalog/
+ENV PORT=8080
+EXPOSE 8080
+ENTRYPOINT ["./registry"]
+CMD ["-catalog", "/app/catalog", "-listen", "0.0.0.0:8080"]

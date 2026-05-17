@@ -1,0 +1,9 @@
+runtime {
+  mode = "enforce"
+}
+
+agent "default" {
+  framework "mcp"
+  default deny
+  rules { permit * }
+}

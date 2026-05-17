@@ -1,0 +1,7 @@
+{
+  "description": "LangGraph SDK enforcement tier wiring",
+  "compatibility": {
+    "langgraph": ">=0.2.0",
+    "langchain-core": ">=0.3.0"
+  }
+}

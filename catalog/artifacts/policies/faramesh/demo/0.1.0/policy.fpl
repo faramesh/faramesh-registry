@@ -1,0 +1,7 @@
+agent "demo-pack" {
+  default deny
+  rules {
+    permit echo/*
+    deny! shell/*
+  }
+}

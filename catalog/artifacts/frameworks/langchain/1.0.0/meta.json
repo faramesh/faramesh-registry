@@ -1,0 +1,7 @@
+{
+  "description": "LangChain framework profile (SDK shim tier)",
+  "faramesh_version": ">=0.1.0",
+  "compatibility": {
+    "tier": "sdk-shim"
+  }
+}
