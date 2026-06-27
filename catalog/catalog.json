@@ -147,16 +147,6 @@
   ],
   "providers": [
     {
-      "name": "faramesh/vault",
-      "latest_version": "1.0.0",
-      "description": "HashiCorp Vault secrets ProviderService sidecar",
-      "trust_tier": "official",
-      "capabilities": ["SECRETS"],
-      "versions": {
-        "1.0.0": "artifacts/providers/faramesh/vault/1.0.0/manifest.json"
-      }
-    },
-    {
       "name": "faramesh/spiffe",
       "latest_version": "1.0.0",
       "description": "SPIRE workload identity ProviderService sidecar",

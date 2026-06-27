@@ -7,7 +7,7 @@
 | `faramesh registry list` / `search` | Fetches `catalog/catalog.json` from GitHub |
 | `faramesh check` with policy/framework imports | Downloads FPL from GitHub, merges AST |
 | `faramesh apply` provider import | Downloads platform binary from GitHub raw, sha256 check |
-| Provider binaries in repo | `vault`, `spiffe`, `dev-kms` — four OS/arch builds each |
+| Provider binaries in repo | `spiffe`, `dev-kms` — four OS/arch builds each |
 
 ## Artifact shapes (this is normal)
 
@@ -23,7 +23,6 @@ Example framework profile (`langgraph@1.0.0`) is ~10 lines: sets `framework "lan
 
 | Artifact | Production? | Notes |
 |----------|-------------|-------|
-| `faramesh/vault` | **Yes** (with your Vault) | Sidecar + manifest hashes; needs live Vault at apply |
 | `faramesh/spiffe` | **Yes** (with SPIRE) | Same |
 | `faramesh/dev-kms` | **No** | Dev/test only — marked in catalog |
 | `faramesh/stripe`, `shell` | **Starter packs** | Real FPL; tune thresholds for your org |

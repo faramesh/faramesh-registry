@@ -2,7 +2,7 @@
 
 CATALOG ?= catalog
 KEY_ID ?= faramesh-ed25519-2026
-PROVIDERS := vault spiffe dev-kms
+PROVIDERS := spiffe dev-kms
 PLATFORMS := linux/amd64 linux/arm64 darwin/amd64 darwin/arm64
 
 gen-key:

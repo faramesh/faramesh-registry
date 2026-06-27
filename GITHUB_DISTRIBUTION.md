@@ -6,7 +6,7 @@ All Faramesh registry artifacts live in this repository. The Faramesh CLI resolv
 
 | Kind | Examples | Binary? |
 |------|----------|---------|
-| **Providers** | `faramesh/vault`, `faramesh/spiffe` | Yes — gRPC sidecar |
+| **Providers** | `faramesh/spiffe`, `faramesh/dev-kms` | Yes — gRPC sidecar |
 | **Policy packs** | `faramesh/stripe`, `faramesh/openai`, `faramesh/github` | FPL only |
 | **Framework profiles** | `langgraph`, `mcp`, `cursor`, `crewai`, `bedrock` | FPL only |
 
@@ -28,7 +28,7 @@ trust {
 
 import "github.com/faramesh/faramesh-registry/frameworks/langgraph@1.0.0"
 import "github.com/faramesh/faramesh-registry/policies/faramesh/stripe@1.0.0" as stripe_rules
-import "github.com/faramesh/faramesh-registry/providers/faramesh/vault@1.0.0"
+import "github.com/faramesh/faramesh-registry/providers/faramesh/spiffe@1.0.0"
 ```
 
 The `ed25519:...` value above is the **public** verification key (same as `catalog/trust/keys.json`). It is safe to publish. The **private** signing key lives only in GitHub Actions as `REGISTRY_SIGNING_KEY_B64` — see [SETUP_SIGNING.md](./SETUP_SIGNING.md).

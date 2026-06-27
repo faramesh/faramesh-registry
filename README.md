@@ -1,10 +1,11 @@
 # Faramesh Registry
 
-Official **GitHub catalog** for Faramesh artifacts: signed provider binaries, policy packs (FPL), and framework profiles (FPL).
+Community **GitHub catalog** for Faramesh artifacts: signed provider binaries, policy packs (FPL), and framework profiles (FPL).
 
 **Catalog:** [github.com/faramesh/faramesh-registry](https://github.com/faramesh/faramesh-registry)  
 **Documentation:** [docs.faramesh.dev/registry](https://docs.faramesh.dev/registry/)  
 **Runtime spec:** [faramesh-core](https://github.com/faramesh/faramesh-core)
+**License:** [Apache-2.0](./LICENSE)
 
 ## Use artifacts in your stack
 
@@ -13,14 +14,14 @@ Imports in `governance.fms` point at this repository (pinned semver required):
 ```hcl
 import "github.com/faramesh/faramesh-registry/frameworks/langgraph@1.0.0"
 import "github.com/faramesh/faramesh-registry/policies/faramesh/stripe@1.0.0" as stripe_rules
-import "github.com/faramesh/faramesh-registry/providers/faramesh/vault@1.0.0"
+import "github.com/faramesh/faramesh-registry/providers/faramesh/spiffe@1.0.0"
 ```
 
 The Faramesh CLI resolves these at `faramesh check` (FPL merge) and `faramesh apply` (provider binaries). No separate registry service is required.
 
 ```bash
 faramesh registry list
-faramesh registry search vault
+faramesh registry search spiffe
 faramesh check
 faramesh apply
 ```
@@ -34,6 +35,10 @@ Optional overrides:
 | `FARAMESH_REGISTRY_GITHUB_REF` | Git ref (default `main`) |
 
 See **[GITHUB_DISTRIBUTION.md](./GITHUB_DISTRIBUTION.md)** and **[CONTRIBUTING.md](./CONTRIBUTING.md)**.
+
+Governance, security, and conduct policies are documented in
+[GOVERNANCE.md](./GOVERNANCE.md), [SECURITY.md](./SECURITY.md), and
+[CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md).
 
 ## Catalog layout
 
